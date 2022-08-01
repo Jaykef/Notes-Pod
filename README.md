@@ -1,7 +1,7 @@
 <img src="./buildResources/home.png" />
 <img src="./buildResources/notes.png" />
 
-# JayNotes
+# Jaykef's Notes Pod
 a simple note-taking app built with vue.
 Inspired by NoteThing.
 
