@@ -6,9 +6,9 @@
         class="w-24 rounded-full"
       />
     </div>
-    <h1 class="font-semibold capitalize">{{ state.name }}</h1>
+    <h1 class="font-semibold capitalize">Jaykef's NotePod</h1>
     <p>
-      Notething is a note taking app with full keyboard compatibility and some
+      Jaykef's NotePod is a note taking app with full keyboard compatibility and some
       other things.
     </p>
     <div class="mt-4">
@@ -39,12 +39,12 @@ export default {
     const links = [
       {
         name: 'Website',
-        url: 'https://notething.vercel.app',
+        url: 'https://https://github.com/Jaykef/Jaykef-Notes-Pod',
         icon: 'riGlobalLine',
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/kholid060/notething',
+        url: 'https://https://github.com/Jaykef/Jaykef-Notes-Pod',
         icon: 'riGithubFill',
       },
     ];
