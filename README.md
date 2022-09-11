@@ -1,5 +1,7 @@
 <img src="./buildResources/home.png" />
+<img src="./buildResources/2.jpg" />
 <img src="./buildResources/notes.png" />
+<img src="./buildResources/3.jpg" />
 
 # Jaykef's Notes Pod
 a simple note-taking app built with vue.
