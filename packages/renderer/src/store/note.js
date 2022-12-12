@@ -1,8 +1,26 @@
 import { defineStore } from 'pinia';
 import { nanoid } from 'nanoid';
 import { useStorage } from '../composable/storage';
+import { DB3, getATestStaticKeypair, getAddress, DocStore, sign } from 'db3js';
 
 const storage = useStorage();
+const db3 = new DB3('http://127.0.0.1:26659');
+const doc_store = new DocStore(db3);
+const [sk, public_key] = (async () => {return await getATestStaticKeypair()})();
+async function mySign(data) {
+	return [await sign(data, sk), public_key];
+}
+
+const noteIndex = {
+	keys: [
+		{
+			name: 'id',
+			keyType: DocKeyType.STRING,
+		},
+	],
+	ns: 'my_notes',
+	docName: 'notes',
+};
 
 export const useNoteStore = defineStore('note', {
   state: () => ({
@@ -17,7 +35,6 @@ export const useNoteStore = defineStore('note', {
       return new Promise((resolve) => {
         storage.get('notes', {}).then((data) => {
           this.data = data;
-
           resolve(data);
         });
       });
@@ -25,8 +42,7 @@ export const useNoteStore = defineStore('note', {
     add(note = {}) {
       return new Promise((resolve) => {
         const id = note.id || nanoid();
-
-        this.data[id] = {
+        const newNote = {
           id,
           title: '',
           content: { type: 'doc', content: [] },
@@ -37,20 +53,18 @@ export const useNoteStore = defineStore('note', {
           isArchived: false,
           ...note,
         };
-
-        storage.set('notes', this.data).then(() => resolve(this.data[id]));
+        this.data[id] = new_note;
+        doc_store.insertDocs(nodeIndex, [new_note], mySign);
       });
     },
     update(id, data = {}) {
       return new Promise((resolve) => {
-        this.data[id] = {
+        const updatedNode =  {
           ...this.data[id],
           ...data,
         };
-
-        storage
-          .set(`notes.${id}`, this.data[id])
-          .then(() => resolve(this.data[id]));
+        this.data[id] = updatedNode;
+        doc_store.insertDocs(nodeIndex, [updatedNode], mySign);
       });
     },
     async delete(id) {

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { useStorage } from '../composable/storage';
 import { useNoteStore } from './note';
+import { DB3, getATestStaticKeypair, getAddress } from 'db3js';
 
 const storage = useStorage();
 
